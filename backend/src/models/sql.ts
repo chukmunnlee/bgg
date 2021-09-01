@@ -1,0 +1,5 @@
+export const SELECT_GAME_SUMMARY = 'select gid, name from game order by gid limit ? offset ?'
+export const SELECT_GAME_BY_GID = 'select * from game where gid = ?'
+export const SELECT_GAME_COUNT = 'select count(gid) as game_cnt from game'
+export const SELECT_COMMENTS_BY_GID = 'select * from comment where gid = ? limit ? offset ?'
+export const SELECT_COMMENTS_BY_GID_COUNT = 'select count(c_id) as comment_cnt from comment where gid = ?'
