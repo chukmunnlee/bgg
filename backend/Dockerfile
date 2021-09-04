@@ -19,6 +19,7 @@ RUN nest build
 
 ###############
 
+ARG TAG=16
 FROM node:${TAG} 
 
 ARG APP_DIR=/app
