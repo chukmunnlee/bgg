@@ -82,7 +82,7 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 					gid: r.gid,
 					user: r.user,
 					rating: r.rating,
-					comment: r.comment
+					comment: r.c_text
 				} as Comment
 			})
 	}
