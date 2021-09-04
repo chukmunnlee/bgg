@@ -11,10 +11,13 @@ export interface Game extends GameSummary {
 	image: string
 }
 
-export interface Comment {
+export interface CommentSummary {
 	cid: string
 	gid: number
 	user: string
+}
+
+export interface Comment extends CommentSummary {
 	rating: number
 	comment: string
 }

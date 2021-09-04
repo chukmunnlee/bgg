@@ -6,11 +6,12 @@ import { BggService } from './services/bgg.service';
 import { CliOptionService } from './services/cli-option.service';
 import { GameController } from './controllers/game.controller';
 import { GamesController } from './controllers/games.controller';
+import { CommentsController } from './controllers/comments.controller';
 import { CommentController } from './controllers/comment.controller';
 
 @Module({
 	imports: [],
-	controllers: [ HealthzController, GameController, GamesController, CommentController],
+	controllers: [ HealthzController, GameController, GamesController, CommentsController, CommentController],
 	providers: [BggService, CliOptionService],
 })
 export class AppModule implements NestModule {

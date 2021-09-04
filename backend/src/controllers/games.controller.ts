@@ -9,7 +9,7 @@ import { GetGames, GetNumberOfGames } from '../models/response'
 @Controller('games')
 export class GamesController extends ControllerBase {
 
-	constructor(private bggSvc: BggService, private cliOpts: CliOptionService) { 
+	constructor(private bggSvc: BggService, cliOpts: CliOptionService) { 
 		super(cliOpts)
 	}
 

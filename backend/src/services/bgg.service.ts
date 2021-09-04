@@ -1,9 +1,9 @@
 import { Injectable, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
 import { createPool, Pool } from 'mysql2/promise'
-import {Game, GameSummary, Comment} from 'src/models/entity';
+import {Game, GameSummary, Comment, CommentSummary} from 'src/models/entity';
 import {
 	SELECT_GAME_BY_GID, SELECT_GAME_COUNT, SELECT_GAME_SUMMARY, 
-	SELECT_COMMENTS_BY_GID_COUNT, SELECT_COMMENTS_BY_GID
+	SELECT_COMMENTS_BY_GID_COUNT, SELECT_COMMENTS_BY_CID, SELECT_COMMENTS_SUMMARY_BY_GID
 } from 'src/models/sql';
 import {CliOptionService} from './cli-option.service';
 
@@ -53,9 +53,9 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 			})
 	}
 
-	async selectCommentByGid(gid: number, limit = 20, offset = 0): Promise<Comment[]> {
+	async selectCommentSummaryByGid(gid: number, limit = 20, offset = 0): Promise<CommentSummary[]> {
 		const conn = await this.pool.getConnection()
-		return conn.query(SELECT_COMMENTS_BY_GID, [ gid, limit, offset ])
+		return conn.query(SELECT_COMMENTS_SUMMARY_BY_GID, [ gid, limit, offset ])
 			.then(result => {
 				conn.release()
 				//@ts-ignore
@@ -64,10 +64,26 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 						cid: r.c_id,
 						gid: r.gid,
 						user: r.user,
-						rating: r.rating,
-						comment: r.c_text
-					}) as Comment
+					}) as CommentSummary
 				)
+			})
+	}
+
+	async selectCommentByCid(cid: string): Promise<Comment> {
+		const conn = await this.pool.getConnection()
+		return conn.query(SELECT_COMMENTS_BY_CID, [ cid ])
+			.then(result => {
+				//@ts-ignore
+				if (!result[0].length)
+					return null
+				const r: any = result[0][0]
+				return {
+					cid: r.c_id,
+					gid: r.gid,
+					user: r.user,
+					rating: r.rating,
+					comment: r.comment
+				} as Comment
 			})
 	}
 
