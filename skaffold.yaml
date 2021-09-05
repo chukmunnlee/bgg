@@ -1,0 +1,8 @@
+apiVersion: skaffold/v2beta21
+kind: Config
+metadata:
+   name: bgg
+
+requires:
+- path: ./database
+- path: ./backend

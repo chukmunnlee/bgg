@@ -4,6 +4,7 @@ FROM node:${TAG} as builder
 ARG APP_DIR=/app
 
 WORKDIR ${APP_DIR}
+
 ADD nest-cli.json .
 ADD package.json .
 ADD package-lock.json .

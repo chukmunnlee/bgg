@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta21
+kind: Config
+metadata:
+   name: database
+
+build:
+   artifacts:
+   - image: chukmunnlee/bgg-database
+     context: .
+     docker:
+        dockerfile: ./Dockerfile
+        buildArgs:
+           TAG: "8"
+           ROOT_PASSWORD: changeit
+   local:
+      push: false
+   tagPolicy:
+      envTemplate:
+         template: "{{ .IMAGE_VERSION }}"
