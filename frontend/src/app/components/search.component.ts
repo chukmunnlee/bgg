@@ -21,10 +21,7 @@ export class SearchComponent implements OnInit {
 
 	search() {
 		const queryParams = { 'q': this.form.value['q'] }
-		this.router.navigate([ '/games/search' ], { queryParams })
-			.catch(error => {
-				console.error('Navigation error: ', error)
-			})
+		this.router.navigate([ '/games', 'search' ], { queryParams })
 	}
 
 }
