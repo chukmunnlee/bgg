@@ -1,0 +1,11 @@
+<h1>Boardgame Search</h1>
+
+<form [formGroup]="form" (ngSubmit)="search()">
+	<div>
+		<label for="q">Search: </label>
+		<input id="q" type="text" placeholder="Enter boardgame name" formControlName="q">
+		<button type="submit" [disabled]="form.invalid">
+			Search
+		</button>
+	</div>
+</form>

@@ -1,10 +1,10 @@
 import { Injectable, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
 import { createPool, Pool } from 'mysql2/promise'
-import {Game, GameSummary, Comment, CommentSummary} from 'src/models/entity';
+import {Game, GameSummary, Comment, CommentSummary} from 'common/models/entity';
 import {
-	SELECT_GAME_BY_GID, SELECT_GAME_COUNT, SELECT_GAME_SUMMARY, 
+	SELECT_GAME_BY_GID, SELECT_GAME_COUNT, SELECT_GAME_SUMMARY, SELECT_GAME_BY_NAME,
 	SELECT_COMMENTS_BY_GID_COUNT, SELECT_COMMENTS_BY_CID, SELECT_COMMENTS_SUMMARY_BY_GID
-} from 'src/models/sql';
+} from '../sql';
 import {CliOptionService} from './cli-option.service';
 
 @Injectable()
@@ -13,6 +13,15 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 	private pool: Pool
 
 	constructor(private cliOptSvc: CliOptionService) { }
+
+	async selectGamesByName(q: string, limit = 20, offset = 0): Promise<GameSummary[]> {
+		const conn = await this.pool.getConnection()
+		return conn.query(SELECT_GAME_BY_NAME, [ `%${q}%`, limit, offset ])
+			.then(result => {
+				conn.release()
+				return result[0] as GameSummary[]
+			})
+	}
 
 	async selectGameSummary(limit = 20, offset = 0): Promise<GameSummary[]> {
 		const conn = await this.pool.getConnection()

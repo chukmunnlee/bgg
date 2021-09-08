@@ -1,7 +1,12 @@
-import {Game, Comment} from "./entity";
+import {Game, Comment } from "./entity";
+
+export interface GetGame {
+	name: string
+	url: string
+}
 
 export interface GetGames {
-	games: { name: string; url: string }[]
+	games: GetGame[],
 	offset: number
 	limit: number
 	total: number

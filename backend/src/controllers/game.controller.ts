@@ -3,7 +3,7 @@ import { Controller, Get, HttpCode, NotFoundException, Param } from '@nestjs/com
 import {BggService} from 'src/services/bgg.service';
 import {CliOptionService} from 'src/services/cli-option.service';
 import { ControllerBase} from './base.controller'
-import {GetGameByGid} from 'src/models/response';
+import {GetGameByGid} from 'common/models/response';
 
 @Controller('game')
 export class GameController extends ControllerBase {

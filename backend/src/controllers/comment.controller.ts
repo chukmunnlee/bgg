@@ -3,7 +3,7 @@ import { Controller, Get, HttpCode, InternalServerErrorException, NotFoundExcept
 import { ControllerBase } from './base.controller'
 import { BggService } from '../services/bgg.service'
 import { CliOptionService } from '../services/cli-option.service'
-import {GetCommentByCid} from '../models/response'
+import {GetCommentByCid} from 'common/models/response'
 
 @Controller('comment')
 export class CommentController extends ControllerBase {

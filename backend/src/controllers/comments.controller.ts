@@ -4,7 +4,7 @@ import {ControllerBase} from './base.controller';
 
 import {BggService} from 'src/services/bgg.service';
 import {CliOptionService} from 'src/services/cli-option.service';
-import {GetCommentsByGid, GetNumberofCommentsByGid} from 'src/models/response';
+import {GetCommentsByGid, GetNumberofCommentsByGid} from 'common/models/response';
 
 @Controller('comments')
 export class CommentsController extends ControllerBase {
