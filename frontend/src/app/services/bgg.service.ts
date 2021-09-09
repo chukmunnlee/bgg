@@ -7,11 +7,14 @@ import { GetGame, GetGames } from 'common/models/response'
 
 @Injectable()
 export class BGGService {
+	baseHref = ''
 	constructor(private http: HttpClient
-			, @Inject(APP_BASE_HREF) private baseHref: string) { }
+			, @Inject(APP_BASE_HREF) readonly baseHrefSvc: string) { 
+		if ('/' != this.baseHrefSvc)
+			this.baseHref = this.baseHrefSvc
+	}
 
 	selectGamesByName(q: string, limit = 20, offset = 0): Promise<GetGame[]> {
-		console.info('>>>>> ', q)
 		const params = new HttpParams()
 			.set('q', q)
 			.set('limit', limit)

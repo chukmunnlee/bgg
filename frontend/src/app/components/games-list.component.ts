@@ -21,6 +21,8 @@ export class GamesListComponent implements OnInit {
 
 	ngOnInit(): void {
 
+		this.q = this.activateRoute.snapshot.queryParams['q']
+
 		if (!this.q) {
 		  this.router.navigate([ '/' ])
 		  return
