@@ -32,3 +32,13 @@ export interface GetNumberofCommentsByGid {
 }
 
 export interface GetCommentByCid extends Comment { }
+
+export interface GetConfig {
+	prefix: string,
+	cors: string,
+	client: string,
+	clientRoot: string,
+	dbHost: string,
+	dbUser: string,
+	version: string
+}

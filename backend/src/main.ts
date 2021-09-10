@@ -1,6 +1,4 @@
 import * as express from 'express'
-import * as cli from 'command-line-args'
-import { CommandLineOptions, OptionDefinition} from 'command-line-args'
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';

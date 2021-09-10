@@ -3,6 +3,7 @@ import { CommandLineOptions, OptionDefinition} from 'command-line-args'
 
 import { Injectable } from '@nestjs/common';
 import {NestExpressApplication} from '@nestjs/platform-express';
+import {NestApplication} from '@nestjs/core';
 
 export const cliOpts: OptionDefinition[] = [
 	{ name: 'port', type: Number },
@@ -12,7 +13,12 @@ export const cliOpts: OptionDefinition[] = [
 	{ name: 'dbPort', type: Number },
 	{ name: 'dbUser', type: String },
 	{ name: 'dbPassword', type: String },
+	{ name: 'client', type: String },
+	{ name: 'clientRoot', type: String },
+	{ name: 'version', type: String }
 ]
+
+export const parseOptions = (opt: OptionDefinition[]) => cli(opt)
 
 @Injectable()
 export class CliOptionService {
@@ -21,7 +27,7 @@ export class CliOptionService {
 
 	constructor() { 
 
-		const opt = cli(cliOpts)
+		const opt = parseOptions(cliOpts)
 
 		if (!opt['port'])
 			opt['port'] = parseInt(process.env.PORT) || 3000
@@ -38,9 +44,18 @@ export class CliOptionService {
 		if (!opt['dbPassword'])
 			opt['dbPassword'] = process.env.DB_PASSWORD || 'fred'
 
+		if (!opt['version'])
+			opt['version'] = process.env.VERSION || 'generic'
+
 		this.options = opt
 	}
 
-	configure(app: NestExpressApplication) {
+	configure(app: NestApplication) {
+
+		if (this.options['prefix'])
+			app.setGlobalPrefix(this.options['prefix'])
+
+		if (this.options['cors'])
+			app.enableCors(this.options['cors'])
 	}
 }
