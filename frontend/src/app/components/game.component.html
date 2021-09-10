@@ -1,0 +1,45 @@
+<h2>Game id <code>{{ gid }}</code></h2>
+
+<table *ngIf="game">
+	<tr>
+		<td>
+			<table>
+				<tr>
+					<td>Name:</td>
+					<td>{{ game.name }}</td>
+				</tr>
+				<tr>
+					<td>Year:</td>
+					<td>{{ game.year }}</td>
+				</tr>
+				<tr>
+					<td>Ranking:</td>
+					<td>{{ game.ranking }}</td>
+				</tr>
+				<tr>
+					<td>Users rated:</td>
+					<td>{{ game.usersRated }}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<div>
+				<a [href]="game.url" target="_blank">
+					<img [src]="game.image" [alt]="game.name">
+				</a>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<div *ngIf="!game">
+	<h2> Hmmm... Cannot find your game <code>{{ gid }}</code> </h2>
+</div>

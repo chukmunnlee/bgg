@@ -3,7 +3,8 @@ import { createPool, Pool } from 'mysql2/promise'
 import {Game, GameSummary, Comment, CommentSummary} from 'common/models/entity';
 import {
 	SELECT_GAME_BY_GID, SELECT_GAME_COUNT, SELECT_GAME_SUMMARY, SELECT_GAME_BY_NAME,
-	SELECT_COMMENTS_BY_GID_COUNT, SELECT_COMMENTS_BY_CID, SELECT_COMMENTS_SUMMARY_BY_GID
+	SELECT_COMMENTS_BY_GID_COUNT, SELECT_COMMENTS_BY_CID, SELECT_COMMENTS_SUMMARY_BY_GID,
+	SELECT_GAME_COUNT_BY_NAME
 } from '../sql';
 import {CliOptionService} from './cli-option.service';
 
@@ -53,7 +54,19 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 			})
 	}
 
-	async seletGameCount(): Promise<number> {
+	async seletGamesCountByName(q: string): Promise<number> {
+		const conn = await this.pool.getConnection()
+		return conn.query(SELECT_GAME_COUNT_BY_NAME, [`%${q}%`])
+			.then(result => {
+				conn.release()
+				//@ts-ignore
+				if (!result[0].length)
+					return 0
+				return result[0][0].game_cnt
+			})
+	}
+
+	async seletGamesCount(): Promise<number> {
 		const conn = await this.pool.getConnection()
 		return conn.query(SELECT_GAME_COUNT)
 			.then(result => {

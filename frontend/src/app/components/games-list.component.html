@@ -1,1 +1,19 @@
-<p>games-list works!</p>
+<div *ngIf="!games.length">
+	<h3> Your search produces no result </h3>
+</div>
+<div *ngIf="games.length">
+	Your search of <code>{{ q }}</code> produces the following results
+	<hr>
+	<div *ngFor="let g of games">
+		<a [routerLink]="[g.url]">{{ g.name }}</a>
+	</div>
+</div>
+
+<div>
+	<button type="button" (click)="prev()" [disabled]="!hasPrev">
+		Previous
+	</button>
+	<button type="button" (click)="next()" [disabled]="!hasNext">
+		Next
+	</button>
+</div>
