@@ -15,6 +15,14 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 
 	constructor(private cliOptSvc: CliOptionService) { }
 
+	async ping(): Promise<void> {
+		const conn = await this.pool.getConnection()
+		return conn.ping()
+			.then(() => {
+				conn.release()
+			})
+	}
+
 	async selectGamesByName(q: string, limit = 20, offset = 0): Promise<GameSummary[]> {
 		const conn = await this.pool.getConnection()
 		return conn.query(SELECT_GAME_BY_NAME, [ `%${q}%`, limit, offset ])
@@ -119,6 +127,9 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 	}
 
 	onApplicationBootstrap() {
+		if (!!this.pool)
+			return
+
 		const opt: any = this.cliOptSvc.options;
 		this.pool = createPool({
 			host: opt['dbHost'],

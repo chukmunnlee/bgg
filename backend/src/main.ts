@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {ExpressAdapter, NestExpressApplication} from '@nestjs/platform-express';
 import {CliOptionService} from './services/cli-option.service';
+import {BggService} from './services/bgg.service';
 
 async function bootstrap() {
 
@@ -13,12 +14,20 @@ async function bootstrap() {
 	nestApp.init()
 
 	const cliOptSvc = nestApp.get(CliOptionService);
+	const bggSvc = nestApp.get(BggService);
+	bggSvc.onApplicationBootstrap()
 
 	nestApp.disable('x-powered-by')
 	const port = cliOptSvc.options.port;
 
-	await nestApp.listen(port)
+	bggSvc.ping()
+		.then(() => nestApp.listen(port))
+		.then(() => {
+			console.info(`Application started on port ${port} at ${new Date()}`)
+		})
+		.catch(error => {
+			console.error('Cannot start application\n', error)
+		})
 
-	console.info(`Application started on port ${port} at ${new Date()}`)
 }
 bootstrap();
