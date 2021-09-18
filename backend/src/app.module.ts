@@ -16,10 +16,10 @@ import { ConfigController } from './controllers/config.controller';
 			const opt = parseOptions(cliOpts)
 			if (opt['client'])
 				return m.ServeStaticModule.forRoot({
-					rootPath: opt['client'] || '',
+					rootPath: opt['client'],
 					serveRoot: opt['clientRoot'] || ''
 			})
-			return m.ServeStaticModule.forRoot({})
+			return m.ServeStaticModule.forRoot()
 		})
 	],
 	controllers: [ HealthzController, GameController, GamesController, CommentsController, CommentController, ConfigController],

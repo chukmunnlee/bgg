@@ -11,6 +11,7 @@ import {BGGService} from './services/bgg.service';
 import { GamesListComponent } from './components/games-list.component';
 import { GameComponent } from './components/game.component';
 import {AppService} from './services/app.service';
+import { GameNewComponent } from './components/game-new.component';
 
 export const PREFIX = window.location.pathname.split('/')[1] || ''
 
@@ -33,13 +34,14 @@ const errorService: Provider = {
 const routes: Routes = [
 	{ path: mkRoute(''), component: SearchComponent },
 	{ path: mkRoute('games/search'), component: GamesListComponent }, 
+	{ path: mkRoute('game/new'), component: GameNewComponent },
 	{ path: mkRoute('game/:gid'), component: GameComponent },
 	{ path: '**', redirectTo: '/', pathMatch: 'full' }
 ]
 
 @NgModule({
   declarations: [
-    AppComponent, SearchComponent, GamesListComponent, GameComponent
+    AppComponent, SearchComponent, GamesListComponent, GameComponent, GameNewComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule, HttpClientModule,
