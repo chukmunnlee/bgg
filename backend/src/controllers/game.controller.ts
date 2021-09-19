@@ -1,9 +1,10 @@
-import { Controller, Get, HttpCode, NotFoundException, Param } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, NotFoundException, Param, Post } from '@nestjs/common';
 
 import {BggService} from 'src/services/bgg.service';
 import {CliOptionService} from 'src/services/cli-option.service';
 import { ControllerBase} from './base.controller'
-import {GetGameByGid} from 'common/models/response';
+import {GetGameByGid, InsertGame} from 'common/models/response';
+import {Game} from 'common/models/entity';
 
 @Controller('game')
 export class GameController extends ControllerBase {
@@ -19,5 +20,12 @@ export class GameController extends ControllerBase {
 		if (!game)
 			throw new NotFoundException({ gid }, `No game with ${gid} exists`)
 		return game
+	}
+
+	@Post()
+	@HttpCode(201)
+	public async insertGame(@Body() game: Game): Promise<InsertGame> {
+		const gid = await this.bggSvc.insertGame(game)
+		return { gid } as InsertGame
 	}
 }

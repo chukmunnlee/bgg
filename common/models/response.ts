@@ -31,6 +31,10 @@ export interface GetNumberofCommentsByGid {
 	total: number
 }
 
+export interface InsertGame {
+	gid: number
+}
+
 export interface GetCommentByCid extends Comment { }
 
 export interface GetConfig {

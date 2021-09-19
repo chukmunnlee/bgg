@@ -12,8 +12,8 @@ export class BaseComponent implements OnDestroy {
 	constructor(public appSvc: AppService, public router: Router) { 
 	}
 
-	home() {
-		this.router.navigate(this.mkPath(['/']))
+	home(): Promise<boolean> {
+		return this.router.navigate(this.mkPath(['/']))
 	}
 
 	navigate(routes: string[], params = {}): Promise<boolean> {

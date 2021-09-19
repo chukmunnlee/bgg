@@ -1,10 +1,12 @@
 import { Injectable, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
 import { createPool, Pool } from 'mysql2/promise'
+import { ResultSetHeader } from 'mysql2'
 import {Game, GameSummary, Comment, CommentSummary} from 'common/models/entity';
 import {
 	SELECT_GAME_BY_GID, SELECT_GAME_COUNT, SELECT_GAME_SUMMARY, SELECT_GAME_BY_NAME,
 	SELECT_COMMENTS_BY_GID_COUNT, SELECT_COMMENTS_BY_CID, SELECT_COMMENTS_SUMMARY_BY_GID,
-	SELECT_GAME_COUNT_BY_NAME
+	SELECT_GAME_COUNT_BY_NAME,
+	INSERT_GAME
 } from '../sql';
 import {CliOptionService} from './cli-option.service';
 
@@ -54,8 +56,8 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 					gid: r.gid,
 					name: r.name,
 					year: r.year,
-					ranking: r.ranking,
-					usersRated: r.users_rated,
+					ranking: r.ranking || -1,
+					usersRated: r.users_rated || 0,
 					url: r.url || '',
 					image: r.image || ''
 				} as Game
@@ -123,6 +125,19 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 			.then(result => {
 				conn.release()
 				return result[0][0].comment_cnt
+			})
+	}
+
+	async insertGame(game: Game): Promise<number> {
+		const conn = await this.pool.getConnection()
+		const params = [ game.name, game.year, 
+				game.ranking || -1, game.usersRated || 0,
+				game.url, game.image || 'assets/placeholder.png'
+		]
+		return conn.query(INSERT_GAME, params)
+			.then(result => {
+				conn.release()
+				return (result[0] as ResultSetHeader).insertId
 			})
 	}
 

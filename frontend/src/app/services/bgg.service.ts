@@ -1,9 +1,9 @@
 import {APP_BASE_HREF} from "@angular/common";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Inject, Injectable} from "@angular/core";
-import {GameSummary} from "common/models/entity";
+import {Game, GameSummary} from "common/models/entity";
 
-import { GetGame, GetGameByGid, GetGames } from 'common/models/response'
+import { GetGame, GetGameByGid, GetGames, InsertGame } from 'common/models/response'
 
 @Injectable()
 export class BGGService {
@@ -25,6 +25,11 @@ export class BGGService {
 
 	selectGameById(gid: number): Promise<GetGameByGid> {
 		return this.http.get<GetGameByGid>(this.mkPath(`/game/${gid}`))
+			.toPromise()
+	}
+
+	insertGame(game: Game): Promise<InsertGame> {
+		return this.http.post<InsertGame>(this.mkPath('/game'), game)
 			.toPromise()
 	}
 

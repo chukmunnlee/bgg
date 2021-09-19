@@ -12,6 +12,7 @@ import { GamesListComponent } from './components/games-list.component';
 import { GameComponent } from './components/game.component';
 import {AppService} from './services/app.service';
 import { GameNewComponent } from './components/game-new.component';
+import {FormGuardService} from './services/form-guard.service';
 
 export const PREFIX = window.location.pathname.split('/')[1] || ''
 
@@ -34,7 +35,7 @@ const errorService: Provider = {
 const routes: Routes = [
 	{ path: mkRoute(''), component: SearchComponent },
 	{ path: mkRoute('games/search'), component: GamesListComponent }, 
-	{ path: mkRoute('game/new'), component: GameNewComponent },
+	{ path: mkRoute('game/new'), component: GameNewComponent, canDeactivate: [ FormGuardService ] },
 	{ path: mkRoute('game/:gid'), component: GameComponent },
 	{ path: '**', redirectTo: '/', pathMatch: 'full' }
 ]
@@ -47,7 +48,7 @@ const routes: Routes = [
     BrowserModule, ReactiveFormsModule, HttpClientModule,
 	 RouterModule.forRoot(routes)
   ],
-  providers: [ BGGService, AppService, dynamicBaseHref, errorService ],
+  providers: [ BGGService, AppService, FormGuardService, dynamicBaseHref, errorService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
