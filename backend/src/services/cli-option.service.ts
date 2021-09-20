@@ -14,7 +14,6 @@ export const cliOpts: OptionDefinition[] = [
 	{ name: 'dbUser', type: String },
 	{ name: 'dbPassword', type: String },
 	{ name: 'client', type: String },
-	{ name: 'clientRoot', type: String },
 	{ name: 'version', type: String }
 ]
 

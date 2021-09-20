@@ -22,7 +22,7 @@ import {JSONSchemaType} from 'ajv';
 			if (opt['client'])
 				return m.ServeStaticModule.forRoot({
 					rootPath: opt['client'],
-					serveRoot: opt['clientRoot'] || ''
+					serveRoot: opt['prefix'] || ''
 			})
 			return m.ServeStaticModule.forRoot()
 		})

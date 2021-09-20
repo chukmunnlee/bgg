@@ -37,7 +37,7 @@ const routes: Routes = [
 	{ path: mkRoute('games/search'), component: GamesListComponent }, 
 	{ path: mkRoute('game/new'), component: GameNewComponent, canDeactivate: [ FormGuardService ] },
 	{ path: mkRoute('game/:gid'), component: GameComponent },
-	{ path: '**', redirectTo: '/', pathMatch: 'full' }
+	{ path: '**', redirectTo: `/${mkRoute('')}`, pathMatch: 'full' }
 ]
 
 @NgModule({
