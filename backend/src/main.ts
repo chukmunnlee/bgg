@@ -1,6 +1,6 @@
 import * as express from 'express'
 
-import { NestFactory } from '@nestjs/core';
+import { NestApplication, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {ExpressAdapter, NestExpressApplication} from '@nestjs/platform-express';
 import {CliOptionService} from './services/cli-option.service';
@@ -17,7 +17,8 @@ async function bootstrap() {
 	const bggSvc = nestApp.get(BggService);
 	bggSvc.onApplicationBootstrap()
 
-	nestApp.disable('x-powered-by')
+	cliOptSvc.configure(nestApp)
+
 	const port = cliOptSvc.options.port;
 
 	bggSvc.ping()

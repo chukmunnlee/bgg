@@ -26,9 +26,9 @@ export class GameNewComponent extends BaseComponent implements OnInit, CanLeaveF
 	ngOnInit(): void { 
 		this.form = this.fb.group({
 			name: this.fb.control('', [ Validators.minLength(2) ]),
-			year: this.fb.control(''),
-			ranking: this.fb.control('-1'),
-			usersRated: this.fb.control('0'),
+			year: this.fb.control((new Date()).getFullYear()),
+			ranking: this.fb.control(-1),
+			usersRated: this.fb.control(0),
 			url: this.fb.control(''),
 			image: this.fb.control('')
 		})
@@ -40,6 +40,7 @@ export class GameNewComponent extends BaseComponent implements OnInit, CanLeaveF
 
 	addGame() {
 		const game = this.form.value as Game
+		game.year = parseInt(this.form.value['year'])
 		this.bggSvc.insertGame(game)
 			.then(result => {
 				this.form.reset()

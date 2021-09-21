@@ -27,7 +27,8 @@ import {JSONSchemaType} from 'ajv';
 			return m.ServeStaticModule.forRoot()
 		})
 	],
-	controllers: [ HealthzController, GameController, GamesController, CommentsController, CommentController, ConfigController],
+	controllers: [ HealthzController, GameController, GamesController
+			, CommentsController, CommentController, ConfigController],
 	providers: [BggService, CliOptionService],
 })
 export class AppModule implements NestModule {

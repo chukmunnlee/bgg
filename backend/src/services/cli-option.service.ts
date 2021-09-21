@@ -49,12 +49,14 @@ export class CliOptionService {
 		this.options = opt
 	}
 
-	configure(app: NestApplication) {
+	configure(app: NestExpressApplication) {
 
 		if (this.options['prefix'])
 			app.setGlobalPrefix(this.options['prefix'])
 
 		if (this.options['cors'])
 			app.enableCors(this.options['cors'])
+
+		app.disable('x-powered-by')
 	}
 }

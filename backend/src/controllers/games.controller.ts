@@ -28,7 +28,7 @@ export class GamesController extends ControllerBase {
 			const result = await this.bggSvc.selectGamesByName(q, limit, offset)
 			const total = await this.bggSvc.seletGamesCountByName(q);
 			return {
-				games: result.map(v => ({ name: v.name, url: `${this.prefix}/game/${v.gid}` } as GetGame)),
+				games: result.map(v => ({ name: v.name, url: `/game/${v.gid}` } as GetGame)),
 				offset, limit, total
 			}
 		} catch (error) {
@@ -46,7 +46,7 @@ export class GamesController extends ControllerBase {
 			const result = await this.bggSvc.selectGameSummary(limit, offset)
 			const total = await this.bggSvc.seletGamesCount();
 			return {
-				games: result.map(v => ({ name: v.name, url: `${this.prefix}/game/${v.gid}` })),
+				games: result.map(v => ({ name: v.name, url: `/game/${v.gid}` })),
 				offset, limit, total
 			}
 		} catch (error) {

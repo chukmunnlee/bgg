@@ -33,11 +33,11 @@ const errorService: Provider = {
 }
 
 const routes: Routes = [
-	{ path: mkRoute(''), component: SearchComponent },
-	{ path: mkRoute('games/search'), component: GamesListComponent }, 
-	{ path: mkRoute('game/new'), component: GameNewComponent, canDeactivate: [ FormGuardService ] },
-	{ path: mkRoute('game/:gid'), component: GameComponent },
-	{ path: '**', redirectTo: `/${mkRoute('')}`, pathMatch: 'full' }
+	{ path: '', component: SearchComponent },
+	{ path: 'games/search', component: GamesListComponent }, 
+	{ path: 'game/new', component: GameNewComponent, canDeactivate: [ FormGuardService ] },
+	{ path: 'game/:gid', component: GameComponent },
+	{ path: '**', redirectTo: '/', pathMatch: 'full' }
 ]
 
 @NgModule({

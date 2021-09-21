@@ -13,11 +13,11 @@ export class BaseComponent implements OnDestroy {
 	}
 
 	home(): Promise<boolean> {
-		return this.router.navigate(this.mkPath(['/']))
+		return this.router.navigate(['/'])
 	}
 
 	navigate(routes: string[], params = {}): Promise<boolean> {
-		return this.router.navigate(this.mkPath(routes), params)
+		return this.router.navigate(routes, params)
 	}
 
 	ngOnDestroy() {
