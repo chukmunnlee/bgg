@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bggconfig
+  labels:
+     app: bgg
+data:
+  BGG_DB_USER: root
+  BGG_VERSION: v1
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bggconfig
+  labels:
+     app: bgg
+data:
+  BGG_DB_SECRET: Y2hhbmdlaXQ=

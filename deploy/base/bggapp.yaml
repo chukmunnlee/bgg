@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bggapp
+  labels:
+    app: bggapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bggapp
+  template:
+    metadata:
+      labels:
+        app: bggapp
+    spec:
+      containers:
+      - image: chukmunnlee/bgg-backend:v1
+        name: bgg-backend
+        envFrom:
+        - configMapRef:
+           name: bggconfig
+        - secretRef:
+           name: bggconfig
+        ports:
+        - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bggapp
+  labels:
+    app: bggapp
+spec:
+  type: ClusterIP
+  selector:
+    app: bggapp
+  ports:
+  - name: 3000-3000
+    port: 3000
+    protocol: TCP
+    targetPort: 3000

@@ -3,7 +3,6 @@ import { CommandLineOptions, OptionDefinition} from 'command-line-args'
 
 import { Injectable } from '@nestjs/common';
 import {NestExpressApplication} from '@nestjs/platform-express';
-import {NestApplication} from '@nestjs/core';
 
 export const cliOpts: OptionDefinition[] = [
 	{ name: 'port', type: Number },

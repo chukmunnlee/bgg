@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s/v1beta1
+kind: Kustomization
+
+resources:
+- ./bggdb.yaml
+- ./bggapp.yaml
