@@ -18,7 +18,8 @@ import {JSONSchemaType} from 'ajv';
 @Module({
 	imports: [
 		import('@nestjs/serve-static').then(m => {
-			const opt = parseOptions(cliOpts)
+			const cliOptSvc = new CliOptionService();
+			const opt = cliOptSvc.options
 			if (opt['client'])
 				return m.ServeStaticModule.forRoot({
 					rootPath: opt['client'],

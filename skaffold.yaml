@@ -1,8 +1,37 @@
-apiVersion: skaffold/v2beta21
+apiVersion: skaffold/v2beta23
 kind: Config
 metadata:
    name: bgg
 
-requires:
-- path: ./database
-- path: ./backend
+build:
+   artifacts:
+   - image: chukmunnlee/bgg-database
+     context: ./database
+     docker:
+        dockerfile: ./Dockerfile
+        buildArgs:
+           TAG: "8"
+           ROOT_PASSWORD: changeit
+
+   - image: chukmunnlee/bgg-frontend
+     context: .
+     docker:
+        dockerfile: ./frontend/Dockerfile
+        buildArgs:
+           TAG: "16"
+           APP_DIR: /app
+
+   - image: chukmunnlee/bgg-backend
+     context: .
+     docker:
+        dockerfile: ./backend/Dockerfile
+        buildArgs:
+           TAG: "16"
+           APP_DIR: /app
+     requires:
+     - image: chukmunnlee/bgg-frontend
+       alias: FRONTEND
+
+   tagPolicy:
+      envTemplate:
+         template: "{{ .IMAGE_TAG }}"
