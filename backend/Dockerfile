@@ -35,4 +35,4 @@ ENV PORT=3000 BGG_CLIENT=/app/frontend
 HEALTHCHECK --interval=60s --timeout=3s --start-period=5s --retries=3 \
 	CMD curl -f localhost:$PORT/healthz || exit 1
 
-ENTRYPOINT [ "node", "dist/main" ]
+ENTRYPOINT [ "node", "dist/backend/src/main" ]

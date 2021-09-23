@@ -35,3 +35,15 @@ build:
    tagPolicy:
       envTemplate:
          template: "{{ .IMAGE_TAG }}"
+
+deploy:
+   kustomize:
+      paths:
+      - ./base
+
+portForward:
+- resourceType: Service
+  resourceName: dev-bggapp
+  namespace: bggns
+  port: 3000
+  localPort: 8080

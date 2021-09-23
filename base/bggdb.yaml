@@ -16,8 +16,9 @@ spec:
         app: bggdb
     spec:
       containers:
-      - image: chukmunnlee/bgg-database:v1
-        name: bgg-database
+      - name: bgg-database
+        image: chukmunnlee/bgg-database:v1
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3306
 ---

@@ -17,4 +17,4 @@ metadata:
   labels:
      app: bgg
 data:
-  BGG_DB_SECRET: Y2hhbmdlaXQ=
+  BGG_DB_PASSWORD: Y2hhbmdlaXQ=

@@ -1,0 +1,60 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ./bggdb.yaml
+- ./bggapp.yaml
+
+namespace: bggns
+namePrefix: dev-
+
+generatorOptions:
+   labels:
+      app: bgg
+
+configMapGenerator:
+- name: bggconfig
+  literals:
+  - BGG_DB_USER=root
+  - BGG_VERSION=v1
+
+secretGenerator:
+- name: bggconfig
+  type: Opaque
+  literals:
+  - BGG_DB_PASSWORD=changeit
+
+patchesStrategicMerge:
+- |
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+      name: bggdb
+   spec:
+      template:
+         spec:
+            containers:
+            - name: bgg-database
+              imagePullPolicy: Always
+- |
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+      name: bggapp
+   spec:
+      template:
+         spec:
+            containers:
+            - name: bgg-backend
+              imagePullPolicy: Always
+
+replacements:
+- source: 
+   kind: Service
+   name: bggdb
+  targets:
+  - select: 
+      kind: Deployment
+    fieldPaths:
+    - spec.template.spec.containers.[name=bgg-backend].env.[name=BGG_DB_HOST].value
+      
