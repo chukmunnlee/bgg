@@ -55,6 +55,7 @@ replacements:
   targets:
   - select: 
       kind: Deployment
+      name: bggapp
     fieldPaths:
     - spec.template.spec.containers.[name=bgg-backend].env.[name=BGG_DB_HOST].value
       
