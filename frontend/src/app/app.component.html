@@ -1,7 +1,24 @@
-<div class="apart">
-	<button (click)="home()">Home</button>
-	<button (click)="newGame()">New</button>
-	<button (click)="back()">Back</button>
+<div class="row mt-1 mb-3">
+	<div class="col d-flex flex-row justify-content-between">
+		<div> 
+			<button class="btn btn-primary" (click)="home()">
+				<i class="fas fa-home"></i>
+				<span> Home </span>
+			</button> 
+		</div>
+		<div> 
+			<button class="btn btn-warning" (click)="newGame()">
+				<i class="far fa-plus-square"></i>
+				<span> New </span>
+			</button> 
+		</div>
+		<div>
+			<button class="btn btn-secondary" (click)="back()">
+				<i class="fas fa-backward"></i>
+				<span> Back </span>
+			</button>
+		</div>
+	</div>
 </div>
 
 <router-outlet></router-outlet>

@@ -1,11 +1,17 @@
-<h1>Boardgame Search</h1>
+<div class="row mb-3">
+	<div class="col">
+		<h1>Boardgame Search</h1>
+	</div>
+</div>
 
 <form [formGroup]="form" (ngSubmit)="search()">
-	<div>
-		<label for="q">Search: </label>
-		<input id="q" type="text" placeholder="Enter boardgame name" formControlName="q">
-		<button type="submit" [disabled]="form.invalid">
-			Search
+	<div class="input-group input-group-lg">
+		<span class="input-group-text">
+			<i class="fas fa-search fa-2x"></i>
+		</span>
+		<input id="q" type="text" class="form-control" placeholder="Enter boardgame name" formControlName="q">
+		<button class="btn btn-success btn-lg" type="submit" [disabled]="form.invalid">
+			Go
 		</button>
 	</div>
 </form>
