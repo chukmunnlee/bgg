@@ -45,8 +45,11 @@ export class CliOptionService {
 		if (!opt['version'])
 			opt['version'] = process.env.BGG_VERSION || 'generic'
 
-		if ((!opt['prefix']) && process.env.BGG_PREFIX)
+		if ((!opt['prefix']) && process.env.BGG_PREFIX) 
 			opt['prefix'] = process.env.BGG_PREFIX
+		
+		if (opt['prefix'] && !opt['prefix'].startsWith('/'))
+				opt['prefix'] = '/' + opt['prefix']
 
 		if ((!opt['cors']) && process.env.BGG_CORS)
 			opt['cors'] = process.env.BGG_CORS

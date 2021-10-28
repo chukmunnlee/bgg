@@ -19,16 +19,19 @@ export class BGGService {
 			.set('q', q)
 			.set('limit', limit)
 			.set('offset', offset)
+		//@ts-ignore
 		return this.http.get<GetGames>(this.mkPath('/games/search'), { params })
 			.toPromise()
 	}
 
 	selectGameById(gid: number): Promise<GetGameByGid> {
+		//@ts-ignore
 		return this.http.get<GetGameByGid>(this.mkPath(`/game/${gid}`))
 			.toPromise()
 	}
 
 	insertGame(game: Game): Promise<InsertGame> {
+		//@ts-ignore
 		return this.http.post<InsertGame>(this.mkPath('/game'), game)
 			.toPromise()
 	}
