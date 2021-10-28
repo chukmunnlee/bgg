@@ -1,57 +1,52 @@
-<h2>Add a New Game</h2>
+<div class="row mb-3">
+	<div class="col">
+		<h2>Add a New Game</h2>
+	</div>
+</div>
+
 <form [formGroup]="form" (ngSubmit)="addGame()">
-	<table>
-		<tr>
-			<td> <label for="name">Name: </label> </td>
-			<td>
-				<input id="name" type="text" size="30" placeholder="Boardgame's name" 
-						required formControlName="name">
-			</td>
-		</tr>
-		<tr>
-			<td> <label for="year">Year: </label> </td>
-			<td>
-				<input id="year" type="text" size="6" placeholder="Year" 
-						required formControlName="year">
-			</td>
-		</tr>
-		<tr>
-			<td> <label for="ranking">Ranking: </label> </td>
-			<td>
-				<input id="ranking" type="number" min="-1" placeholder="Game's ranking"
-						formControlName="ranking">
-			</td>
-		</tr>
-		<tr>
-			<td> <label for="users_rated">Users Rated: </label> </td>
-			<td>
-				<input id="users_rated" type="number" min="0" placeholder="User's rated"
-						formControlName="usersRated">
-			</td>
-		</tr>
-		<tr>
-			<td> <label for="url">URL: </label> </td>
-			<td>
-				<input id="url" type="string" size="50" placeholder="Game's URL" 
-						required formControlName="url">
-			</td>
-		</tr>
-		<tr>
-			<td> <label for="image">Image: </label> </td>
-			<td>
-				<div>
-					<input id="url" type="string" size="50" placeholder="Game's image" 
-						formControlName="image">
-				</div>
-				<div>
-					<img [src]="form.value.image" alt="">
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<button type="submit" [disabled]="form.invalid"> Add </button>
-			</td>
-		</tr>
-	</table>
+	<div class="mb-3">
+		<label for="name">Name: </label> 
+		<input id="name" class="form-control" type="text" size="30" placeholder="Boardgame's name" 
+				required formControlName="name">
+	</div>
+	<div class="mb-3">
+		<label for="year">Year: </label> 
+		<input id="year" class="form-control" type="text" size="6" placeholder="Year" 
+				required formControlName="year">
+	</div>
+	<div class="mb-3"> 
+		<label for="ranking">Ranking: </label> 
+		<input id="ranking" class="form-control" type="number" min="-1" placeholder="Game's ranking"
+				formControlName="ranking">
+	</div>
+	<div class="md-3">
+		<label for="users_rated">Users Rated: </label> 
+		<input id="users_rated" class="form-control" type="number" min="0" placeholder="User's rated"
+			formControlName="usersRated">
+	</div>
+	<div class="mb-3">
+		<label for="url">URL: </label> 
+		<input id="url" class="form-control" type="string" size="50" placeholder="Game's URL" 
+			required formControlName="url">
+	</div>
+	<div class="row mb-3">
+		<div class="col-8">
+			<label for="image">Image: </label> 
+			<input id="url" class="form-control" type="string" size="50" placeholder="Game's image" 
+					formControlName="image">
+		</div>
+		<div class="col-4">
+			<img src="../assets/placeholder.png" class="img-thumbnail" *ngIf="!form.value.image">
+			<img [src]="form.value.image" class="img-thumbnail" *ngIf="!!form.value.image">
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col d-flex justify-content-end">
+			<button type="submit" class="btn btn-success" [disabled]="form.invalid"> 
+				<i class="fas fa-plus"></i>
+				<span> Add </span>
+			</button>
+		</div>
+	</div>
 </form>

@@ -1,19 +1,33 @@
-<div *ngIf="!games.length">
-	<h3> Your search produces no result </h3>
+<div class="row mb-3" *ngIf="!games.length">
+	<div class="col">
+		<h3> Your search produces no result </h3>
+	</div>
 </div>
 <div *ngIf="games.length">
-	Your search of <code>{{ q }}</code> produces the following results
-	<hr>
-	<div *ngFor="let g of games">
-		<a [routerLink]="[g.url]">{{ g.name }}</a>
+	<div class="row mb-3" *ngIf="games.length">
+		<div class="col fs-3">
+			Your search of <code>{{ q }}</code> produces the following results
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<div class="list-group" *ngFor="let g of games">
+			<a class="list-group-item list-group-action fs-5" [routerLink]="[g.url]">
+				{{ g.name }}
+			</a>
+		</div>
 	</div>
 </div>
 
-<div>
-	<button type="button" (click)="prev()" [disabled]="!hasPrev">
-		Previous
-	</button>
-	<button type="button" (click)="next()" [disabled]="!hasNext">
-		Next
-	</button>
+<div class="row mb-4">
+	<div class="col d-flex flex-row justify-content-between">
+		<button type="button" class="btn btn-dark" (click)="prev()" [disabled]="!hasPrev">
+			<i class="fas fa-chevron-circle-left"></i>
+			<span> Previous </span>
+		</button>
+		<button type="button" class="btn btn-dark" (click)="next()" [disabled]="!hasNext">
+			<i class="fas fa-chevron-circle-right"></i>
+			<span> Next </span>
+		</button>
+	</div>
 </div>

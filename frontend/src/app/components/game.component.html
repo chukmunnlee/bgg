@@ -1,45 +1,45 @@
-<h2>Game id <code>{{ gid }}</code></h2>
 
-<table *ngIf="game">
-	<tr>
-		<td>
-			<table>
-				<tr>
-					<td>Name:</td>
-					<td>{{ game.name }}</td>
-				</tr>
-				<tr>
-					<td>Year:</td>
-					<td>{{ game.year }}</td>
-				</tr>
-				<tr>
-					<td>Ranking:</td>
-					<td>{{ game.ranking }}</td>
-				</tr>
-				<tr>
-					<td>Users rated:</td>
-					<td>{{ game.usersRated }}</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-				</tr>
-			</table>
-		</td>
-		<td>
-			<div>
-				<a [href]="game.url" target="_blank">
-					<img [src]="game.image" [alt]="game.name">
-				</a>
+<div class="card" *ngIf="game">
+	<div class="card-header fs-2">
+		{{ game.name }} (<code>{{ gid }}</code>)
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-9">
+				<table class="card-text table table-hover">
+					<tbody>
+						<tr>
+							<td>Year:</td>
+							<td>{{ game.year }}</td>
+						</tr>
+						<tr>
+							<td>Ranking:</td>
+							<td>{{ game.ranking }}</td>
+						</tr>
+						<tr>
+							<td>Users rated:</td>
+							<td>{{ game.usersRated }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="d-flex justify-content-end mt-2">
+					<a [href]="game.url" class="btn btn-danger" target="_blank">
+						<i class="far fa-paper-plane"></i>
+						<span> Go to website</span>
+					</a>
+				</div>
 			</div>
-		</td>
-	</tr>
-</table>
+			<div class="col-3 d-flex justify-content-center align-items-center">
+				<div>
+					<img [src]="game.image" [alt]="game.name" class="img-fluid">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-<div *ngIf="!game">
-	<h2> Hmmm... Cannot find your game <code>{{ gid }}</code> </h2>
+<div class="row" *ngIf="!game">
+	<div class="col">
+		<h2> Hmmm... Cannot find your game <code>{{ gid }}</code> </h2>
+	</div>
 </div>
