@@ -14,20 +14,10 @@ import { ConfigController } from './controllers/config.controller';
 import {createJSONValidator} from './middlewares/validate-json-input';
 import {Game} from 'common/models/entity';
 import {JSONSchemaType} from 'ajv';
+import {metricsModule, serveStaticModule} from './utils';
 
 @Module({
-	imports: [
-		import('@nestjs/serve-static').then(m => {
-			const cliOptSvc = new CliOptionService();
-			const opt = cliOptSvc.options
-			if (opt['client'])
-				return m.ServeStaticModule.forRoot({
-					rootPath: opt['client'],
-					serveRoot: opt['prefix'] || ''
-			})
-			return m.ServeStaticModule.forRoot()
-		})
-	],
+	imports: [ serveStaticModule(), metricsModule() ],
 	controllers: [ HealthzController, GameController, GamesController
 			, CommentsController, CommentController, ConfigController],
 	providers: [BggService, CliOptionService],
