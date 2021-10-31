@@ -14,13 +14,13 @@ import { ConfigController } from './controllers/config.controller';
 import {createJSONValidator} from './middlewares/validate-json-input';
 import {Game} from 'common/models/entity';
 import {JSONSchemaType} from 'ajv';
-import {metricsModule, serveStaticModule} from './utils';
+import {metricsModule, mkMetrics, serveStaticModule} from './utils';
 
 @Module({
 	imports: [ serveStaticModule(), metricsModule() ],
 	controllers: [ HealthzController, GameController, GamesController
 			, CommentsController, CommentController, ConfigController],
-	providers: [BggService, CliOptionService],
+	providers: [ BggService, CliOptionService, ...mkMetrics() ],
 })
 export class AppModule implements NestModule {
 

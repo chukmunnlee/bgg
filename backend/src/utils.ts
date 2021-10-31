@@ -1,5 +1,8 @@
-import {PrometheusOptions} from '@willsoto/nestjs-prometheus';
+import {Provider} from '@nestjs/common';
+import {makeCounterProvider, PrometheusOptions} from '@willsoto/nestjs-prometheus';
 import {CliOptionService} from './services/cli-option.service';
+
+export const METRIC_API_INVOCATIONS = 'api_invocations'
 
 export const serveStaticModule = () => 
 		import('@nestjs/serve-static').then(m => {
@@ -19,12 +22,22 @@ export const metricsModule = () =>
 		const opt = cliOptSvc.options
 		const config: PrometheusOptions = {
 			path: '/metrics',
-			defaultMetrics: { 
-				enabled: true, 
-				//config: {}
-			}
+			defaultMetrics: { enabled: true }
 		}
 		if ('client' in opt) 
 			config['path'] = `${opt['client']}/metrics`
 		return m.PrometheusModule.register(config)
 	})
+
+export const mkMetrics = (): Provider<any>[] => {
+	const metrics: Provider<any>[] = []
+	metrics.push(
+		makeCounterProvider({
+			name: METRIC_API_INVOCATIONS,
+			help: 'Request to /api/*',
+			labelNames: [ 'path', 'code', 'instanceName', 'method' ]
+		})
+	)
+	console.info('>>> mkMetrics: ', metrics)
+	return metrics
+}
