@@ -1,6 +1,6 @@
 import * as express from 'express'
 
-import { NestApplication, NestFactory } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {ExpressAdapter, NestExpressApplication} from '@nestjs/platform-express';
 import {CliOptionService} from './services/cli-option.service';

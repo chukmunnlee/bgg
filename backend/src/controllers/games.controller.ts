@@ -6,7 +6,7 @@ import {ControllerBase} from './base.controller';
 
 import { GetGame, GetGames, GetNumberOfGames } from 'common/models/response'
 
-@Controller('games')
+@Controller('api/games')
 export class GamesController extends ControllerBase {
 
 	constructor(private bggSvc: BggService, cliOpts: CliOptionService) { 

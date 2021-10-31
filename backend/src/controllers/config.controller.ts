@@ -11,6 +11,7 @@ export class ConfigController {
 	@HttpCode(200)
 	public getConfig(): GetConfig {
 		return {
+			name: this.cliOptSvc.options['name'], 
 			prefix: this.cliOptSvc.options['prefix'] || 'not set',
 			cors: this.cliOptSvc.options['cors'] || false,
 			client: this.cliOptSvc.options['client'] || 'not set',

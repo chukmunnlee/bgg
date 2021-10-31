@@ -19,7 +19,10 @@ export const metricsModule = () =>
 		const opt = cliOptSvc.options
 		const config: PrometheusOptions = {
 			path: '/metrics',
-			defaultMetrics: { enabled: true, }
+			defaultMetrics: { 
+				enabled: true, 
+				//config: {}
+			}
 		}
 		if ('client' in opt) 
 			config['path'] = `${opt['client']}/metrics`
