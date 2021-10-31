@@ -2,7 +2,7 @@ import {Provider} from '@nestjs/common';
 import {makeCounterProvider, PrometheusOptions} from '@willsoto/nestjs-prometheus';
 import {CliOptionService} from './services/cli-option.service';
 
-export const METRIC_API_INVOCATIONS = 'api_invocations'
+export const METRIC_BGG_API_REQUEST = 'bgg_api_request'
 
 export const serveStaticModule = () => 
 		import('@nestjs/serve-static').then(m => {
@@ -33,11 +33,10 @@ export const mkMetrics = (): Provider<any>[] => {
 	const metrics: Provider<any>[] = []
 	metrics.push(
 		makeCounterProvider({
-			name: METRIC_API_INVOCATIONS,
+			name: METRIC_BGG_API_REQUEST,
 			help: 'Request to /api/*',
 			labelNames: [ 'path', 'code', 'instanceName', 'method' ]
 		})
 	)
-	console.info('>>> mkMetrics: ', metrics)
 	return metrics
 }
