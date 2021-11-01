@@ -15,6 +15,7 @@ import {createJSONValidator} from './middlewares/validate-json-input';
 import {Game} from 'common/models/entity';
 import {JSONSchemaType} from 'ajv';
 import {metricsModule, mkMetrics, serveStaticModule} from './utils';
+import {InflightRequestMetricMiddleware} from './middlewares/inflight-request-metric';
 
 @Module({
 	imports: [ serveStaticModule(), metricsModule() ],
@@ -30,5 +31,7 @@ export class AppModule implements NestModule {
 			//@ts-ignore
 			.apply(createJSONValidator(PostGameSchema as JSONSchemaType<Game>))
 					.forRoutes({ path: 'game', method: RequestMethod.POST })
+			.apply(InflightRequestMetricMiddleware)
+					.forRoutes({ path: '/*', method: RequestMethod.ALL })
 	}
 }

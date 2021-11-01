@@ -7,13 +7,13 @@ import { ControllerBase} from './base.controller'
 import {GetGameByGid, InsertGame} from 'common/models/response';
 import {Game} from 'common/models/entity';
 import {InjectMetric} from '@willsoto/nestjs-prometheus';
-import {METRIC_API_INVOCATIONS} from 'src/utils';
+import {METRIC_BGG_API_REQUEST} from 'src/utils';
 
 @Controller('api/game')
 export class GameController extends ControllerBase {
 
 	constructor(private bggSvc: BggService,  
-			@InjectMetric(METRIC_API_INVOCATIONS) private metricApiInvoke: Counter<string>,
+			@InjectMetric(METRIC_BGG_API_REQUEST) private metricApiInvoke: Counter<string>,
 			cliOpts: CliOptionService) { 
 		super(cliOpts)
 	}
