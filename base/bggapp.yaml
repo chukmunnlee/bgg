@@ -22,6 +22,10 @@ spec:
         env:
         - name: BGG_DB_HOST
           value: bggdb
+        - name: BGG_NAME
+          valueFrom:
+             fieldRef:
+                fieldPath: metadata.name
         envFrom:
         - configMapRef:
            name: bggconfig
