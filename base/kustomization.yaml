@@ -16,11 +16,13 @@ configMapGenerator:
 - name: bggconfig
   literals:
   - BGG_DB_USER=root
-  - BGG_VERSION=v2
+  - BGG_VERSION=v3
 
 images:
 - name: chukmunnlee/bgg-backend
-  newTag: v2
+  newTag: v3
+- name: chukmunnlee/bgg-database
+  newTag: v3
 
 secretGenerator:
 - name: bggconfig
