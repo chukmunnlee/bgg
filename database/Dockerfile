@@ -5,6 +5,7 @@ FROM mysql:${TAG}
 ARG ROOT_PASSWORD=changeit 
 
 ADD bgg.sql /docker-entrypoint-initdb.d
+ADD mysql-exporter.sql /docker-entrypoint-initdb.d
 #
 # environment variables
 ENV MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
