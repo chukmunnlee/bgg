@@ -13,21 +13,18 @@ export const serveStaticModule = () =>
 			if ('client' in opt)
 				return m.ServeStaticModule.forRoot({
 					rootPath: opt['client'],
-					serveRoot: opt['prefix'] || ''
+					serveRoot: opt['prefix'] || '',
+					exclude: [ '/metrics*', '/api*', '/config*' ]
 			})
 			return m.ServeStaticModule.forRoot()
 		})
 
 export const metricsModule = () =>
 	import('@willsoto/nestjs-prometheus').then(m => {
-		const cliOptSvc = new CliOptionService();
-		const opt = cliOptSvc.options
 		const config: PrometheusOptions = {
 			path: '/metrics',
 			defaultMetrics: { enabled: true }
 		}
-		if ('client' in opt) 
-			config['path'] = `${opt['client']}/metrics`
 		return m.PrometheusModule.register(config)
 	})
 
