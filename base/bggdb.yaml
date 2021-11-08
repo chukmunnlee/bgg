@@ -22,7 +22,7 @@ spec:
         ports:
         - containerPort: 3306
       - name: mysqld-exporter
-        image: prom/mysqld-exporter:master
+        image: prom/mysqld-exporter:v0.13.0
         imagePullPolicy: IfNotPresent
         envFrom:
         - configMapRef:
