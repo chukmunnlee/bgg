@@ -8,6 +8,7 @@ metadata:
 data:
   BGG_DB_USER: root
   BGG_VERSION: v1
+  EXPORTER: exporter
 
 ---
 apiVersion: v1
@@ -18,3 +19,4 @@ metadata:
      app: bgg
 data:
   BGG_DB_PASSWORD: Y2hhbmdlaXQ=
+  EXPORTER_PASSWORD: ZXhwb3J0ZXI=
