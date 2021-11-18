@@ -13,7 +13,8 @@ export const cliOpts: OptionDefinition[] = [
 	{ name: 'dbUser', type: String },
 	{ name: 'dbPassword', type: String },
 	{ name: 'client', type: String },
-	{ name: 'version', type: String }
+	{ name: 'version', type: String },
+	{ name: 'name', type: String },
 ]
 
 export const parseOptions = (opt: OptionDefinition[]) => cli(opt)
@@ -56,6 +57,13 @@ export class CliOptionService {
 
 		if ((!opt['client']) && process.env.BGG_CLIENT)
 			opt['client'] = process.env.BGG_CLIENT
+
+		if (!opt['name']) {
+			if (process.env.BGG_NAME)
+				opt['name'] = process.env.BGG_NAME
+			else
+				opt['name'] = 'bgg'
+		}
 
 		this.options = opt
 	}

@@ -6,7 +6,7 @@ import {BggService} from 'src/services/bgg.service';
 import {CliOptionService} from 'src/services/cli-option.service';
 import {GetCommentsByGid, GetNumberofCommentsByGid} from 'common/models/response';
 
-@Controller('comments')
+@Controller('api/comments')
 export class CommentsController extends ControllerBase {
 
 	constructor(private bggSvc: BggService, cliOpts: CliOptionService) { 

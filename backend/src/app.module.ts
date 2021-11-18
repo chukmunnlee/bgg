@@ -14,23 +14,14 @@ import { ConfigController } from './controllers/config.controller';
 import {createJSONValidator} from './middlewares/validate-json-input';
 import {Game} from 'common/models/entity';
 import {JSONSchemaType} from 'ajv';
+import {metricsModule, mkMetrics, serveStaticModule} from './utils';
+import {InflightRequestMetricMiddleware} from './middlewares/inflight-request-metric';
 
 @Module({
-	imports: [
-		import('@nestjs/serve-static').then(m => {
-			const cliOptSvc = new CliOptionService();
-			const opt = cliOptSvc.options
-			if (opt['client'])
-				return m.ServeStaticModule.forRoot({
-					rootPath: opt['client'],
-					serveRoot: opt['prefix'] || ''
-			})
-			return m.ServeStaticModule.forRoot()
-		})
-	],
+	imports: [ serveStaticModule(), metricsModule() ],
 	controllers: [ HealthzController, GameController, GamesController
 			, CommentsController, CommentController, ConfigController],
-	providers: [BggService, CliOptionService],
+	providers: [ BggService, CliOptionService, ...mkMetrics() ],
 })
 export class AppModule implements NestModule {
 
@@ -40,5 +31,7 @@ export class AppModule implements NestModule {
 			//@ts-ignore
 			.apply(createJSONValidator(PostGameSchema as JSONSchemaType<Game>))
 					.forRoutes({ path: 'game', method: RequestMethod.POST })
+			.apply(InflightRequestMetricMiddleware)
+					.forRoutes({ path: '/*', method: RequestMethod.ALL })
 	}
 }

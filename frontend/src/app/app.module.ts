@@ -16,12 +16,6 @@ import {FormGuardService} from './services/form-guard.service';
 
 export const PREFIX = window.location.pathname.split('/')[1] || ''
 
-const mkRoute = (r: string) => {
-	if (PREFIX)
-		return `${PREFIX}/${r}`
-	return r
-}
-
 const dynamicBaseHref: Provider = {
 	provide: APP_BASE_HREF,
 	useValue: '/' + PREFIX
