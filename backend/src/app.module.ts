@@ -5,7 +5,7 @@ import { PostGameSchema } from 'common/models/schemas'
 
 import { HealthzController } from './controllers/healthz.controller';
 import { BggService } from './services/bgg.service';
-import { CliOptionService, cliOpts, parseOptions } from './services/cli-option.service';
+import { CliOptionService } from './services/cli-option.service';
 import { GameController } from './controllers/game.controller';
 import { GamesController } from './controllers/games.controller';
 import { CommentsController } from './controllers/comments.controller';

@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import {ExpressAdapter, NestExpressApplication} from '@nestjs/platform-express';
 import {CliOptionService} from './services/cli-option.service';
 import {BggService} from './services/bgg.service';
+import {createInterceptor, TracingInterceptor} from './services/tracing.interceptor';
 
 async function bootstrap() {
 
@@ -20,6 +21,10 @@ async function bootstrap() {
 	cliOptSvc.configure(nestApp)
 
 	const port = cliOptSvc.options.port;
+
+	nestApp.useGlobalInterceptors(createInterceptor(cliOptSvc.options.name || 'not-set'));
+
+	createInterceptor('abc')
 
 	bggSvc.ping()
 		.then(() => nestApp.listen(port))
