@@ -2,35 +2,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bggapp
+  name: bggapp-deploy
   labels:
+    name: bggapp-deploy
     app: bggapp
 spec:
   replicas: 1
   selector:
     matchLabels:
+      name: bggapp-pod
       app: bggapp
   template:
     metadata:
+      name: bggapp-pod
       labels:
+        name: bggapp-pod
         app: bggapp
     spec:
       containers:
       - name: bgg-backend
-        image: chukmunnlee/bgg-backend:v1
+        image: chukmunnlee/bgg-backend:v3
         imagePullPolicy: IfNotPresent
         env:
         - name: BGG_DB_HOST
-          value: bggdb
+          value: bggdb-svc.bggns.svc.cluster.local
         - name: BGG_NAME
           valueFrom:
              fieldRef:
                 fieldPath: metadata.name
         envFrom:
         - configMapRef:
-           name: bggconfig
+           name: bgg-cm
         - secretRef:
-           name: bggconfig
+           name: bgg-secret
         ports:
         - containerPort: 3000
 
@@ -38,15 +42,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: bggapp
+  name: bggapp-svc
   labels:
+    name: bggapp-svc
     app: bggapp
 spec:
   type: ClusterIP
   selector:
+    app: bggapp-pod
     app: bggapp
   ports:
-  - name: 3000-3000
+  - name: web
     port: 3000
     protocol: TCP
     targetPort: 3000

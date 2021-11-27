@@ -1,0 +1,31 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+   name: bggdb-prom
+   labels:
+      name: bggdb-prom
+      app: bggapp
+      release: prometheus
+spec:
+   selector:
+      matchLabels:
+         name: bggdb-svc
+   endpoints:
+   - port: web
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+   name: bggapp-prom
+   labels:
+      name: bggapp-prom
+      app: bggapp
+      release: prometheus
+spec:
+   selector:
+      matchLabels:
+         name: bggapp-svc
+   endpoints:
+   - port: web

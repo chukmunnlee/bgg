@@ -2,22 +2,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bggdb
+  name: bggdb-deploy
   labels:
+    name: bggdb-deploy
     app: bggdb
 spec:
   replicas: 1
   selector:
     matchLabels:
+      name: bggdb-pod
       app: bggdb
   template:
     metadata:
+      name: bggdb-pod
       labels:
+        name: bggdb-pod
         app: bggdb
     spec:
       containers:
       - name: bgg-database
-        image: chukmunnlee/bgg-database:v1
+        image: chukmunnlee/bgg-database:v3.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3306
@@ -26,9 +30,9 @@ spec:
         imagePullPolicy: IfNotPresent
         envFrom:
         - configMapRef:
-            name: bggconfig
+            name: bgg-cm
         - secretRef:
-            name: bggsecret
+            name: bgg-secret
         env:
         - name: DATA_SOURCE_NAME
           value: "$(EXPORTER):$(EXPORTER_PASSWORD)@(localhost:3306)"
@@ -38,12 +42,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: bggdb
+  name: bggdb-svc
   labels:
+    name: bggdb-svc
     app: bggdb
 spec:
   type: ClusterIP
   selector:
+    name: bggdb-pod
     app: bggdb
   ports:
   - name: 3306-3306

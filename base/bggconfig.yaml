@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: bggconfig
+  name: bgg-cm
   labels:
      app: bgg
 data:
@@ -14,7 +14,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: bggconfig
+  name: bgg-secret
   labels:
      app: bgg
 data:

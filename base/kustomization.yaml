@@ -19,14 +19,14 @@ generatorOptions:
       app: bgg
 
 configMapGenerator:
-- name: bggconfig
+- name: bgg-cm
   literals:
   - BGG_DB_USER=root
   - BGG_VERSION=v3
   - EXPORTER=exporter
 
 secretGenerator:
-- name: bggconfig
+- name: bgg-secret
   type: Opaque
   literals:
   - BGG_DB_PASSWORD=changeit
@@ -37,7 +37,7 @@ patchesStrategicMerge:
    apiVersion: apps/v1
    kind: Deployment
    metadata:
-      name: bggdb
+      name: bggdb-deploy
    spec:
       template:
          spec:
@@ -48,7 +48,7 @@ patchesStrategicMerge:
    apiVersion: apps/v1
    kind: Deployment
    metadata:
-      name: bggapp
+      name: bggapp-deploy
    spec:
       template:
          spec:
@@ -59,11 +59,11 @@ patchesStrategicMerge:
 replacements:
 - source: 
    kind: Service
-   name: bggdb
+   name: bggdb-svc
   targets:
   - select: 
       kind: Deployment
-      name: bggapp
+      name: bggapp-deploy
     fieldPaths:
     - spec.template.spec.containers.[name=bgg-backend].env.[name=BGG_DB_HOST].value
       
