@@ -1,3 +1,9 @@
+export interface GameSummary {
+	gameId: number
+	name: string
+	url: string
+}
+
 export interface Game {
 	gameId: number
 	name: string

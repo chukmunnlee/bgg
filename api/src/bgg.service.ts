@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
 
 import { MongoClient } from 'mongodb'
-import { Game, Comment } from './models';
+import { Game, Comment, GameSummary } from './models';
 
 import { env } from './utils'
 
@@ -35,6 +35,24 @@ export class BggService implements OnApplicationBootstrap, OnApplicationShutdown
 						image: r.image
 				}
 			})
+	}
+
+	async getGamesSummary(limit: number, offset: number): Promise<GameSummary[]> {
+		return this.collection('games')
+			.find()
+			.skip(offset)
+			.limit(limit)
+			.project({ _id: 0, gameId: 1, name: 1, url: 1 })
+			.sort({ name: -1 })
+			.toArray()
+			.then(results => results.map(
+					r => ({
+						gameId: r.gid,
+						name: r.name,
+						url: r.url,
+					} as GameSummary)
+				)
+			)
 	}
 
 	async getGames(limit: number, offset: number): Promise<Game[]> {
