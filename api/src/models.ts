@@ -7,3 +7,15 @@ export interface Game {
 	url: string
 	image: string
 }
+
+export interface Comment {
+	commentId: string
+	gameId: number
+	user: string
+	rating: number
+	text: string
+}
+
+export interface Version {
+	version: string
+}
